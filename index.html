@@ -6,7 +6,7 @@
   <title>Fathanstico - Petualangan Kapten Fathan</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Playful / Doodle ala Fabulous -->
+  <!-- Font Playful / Hand-drawn ala Fabulous -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Mali:wght@500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
   <!-- Canvas Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -14,7 +14,7 @@
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
-      background: #FDFBF7; /* Cream lembut ala Fabulous */
+      background: #FDFBF7;
       background-image: radial-gradient(#E2E8F0 1px, transparent 1px);
       background-size: 20px 20px;
     }
@@ -25,7 +25,7 @@
       font-family: 'Fredoka', cursive;
     }
     
-    /* Kartu Pastel Bergaya Cartoon Fabulous */
+    /* Style Kartu Cartoon Pastel Fabulous */
     .card-fabulous-purple {
       background: linear-gradient(135deg, #A855F7 0%, #7C3AED 100%);
       box-shadow: 0 12px 28px -6px rgba(124, 58, 237, 0.35);
@@ -43,7 +43,7 @@
       border-radius: 24px;
     }
     
-    /* Pill / Button Fabulous Style */
+    /* Tombol Style Fabulous */
     .btn-fab-yellow {
       background: #FBBF24;
       color: #78350F;
@@ -71,10 +71,9 @@
 <body class="min-h-screen pb-16 text-slate-800">
 
   <!-- ========================================== -->
-  <!-- KONFIGURASI GAS (LANGSUNG TERTANAM DI KODE) -->
+  <!-- KONFIGURASI GAS TERINTEGRASI               -->
   <!-- ========================================== -->
   <script>
-    // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI
     const DEFAULT_GAS_URL = "https://script.google.com/macros/s/AKfycbyFLQ-TVFD1xllVXEjFlCJqVjjXvDUoA9H_0c9zysiEw7eZWQmf0SJt5LB6gr83hDJ8kA/exec";
   </script>
 
@@ -102,7 +101,7 @@
         </button>
       </div>
 
-      <!-- BINTANG & TABUNAN XP -->
+      <!-- BINTANG HARIAN & TABUNAN XP -->
       <div class="mt-4 pt-3 border-t border-white/20 flex items-center justify-between">
         <div class="flex items-center space-x-1">
           <span class="text-xs font-bold text-purple-200 mr-1">BINTANG:</span>
@@ -149,7 +148,7 @@
       </div>
     </section>
 
-    <!-- 3. TAB NAVIGASI UTAMA (4 TAB AGLA FABULOUS) -->
+    <!-- 3. TAB NAVIGASI UTAMA -->
     <nav class="grid grid-cols-4 gap-2">
       <button id="tab-btn-quests" onclick="switchTab('quests')" class="py-3 bg-purple-600 text-white rounded-2xl text-center shadow-md font-bold text-xs font-fun transition">
         <span class="block text-base mb-0.5">📋</span> Misi Harian
@@ -193,33 +192,42 @@
           <span class="text-4xl block">🔒</span>
           <h4 class="font-bold text-sm text-amber-900 font-fun">Cerita Hari Ini Terkunci</h4>
           <p class="text-xs text-amber-800 font-doodle">
-            Minta Ayah atau Ibu mengkonfirmasi penyelesaian misimu di Dashboard Ortu untuk membuka komik cerita malam ini!
+            Minta Ayah atau Ibu mengkonfirmasi penyelesaian misimu di Dashboard Ortu untuk membuka episode hari ini!
           </p>
         </div>
 
         <div id="story-reader" class="hidden space-y-4">
-          <div class="border-b pb-3">
-            <span class="text-[10px] font-bold text-purple-600 uppercase tracking-widest">Episode 1</span>
-            <h3 id="story-title" class="font-bold text-base text-slate-900 font-fun">Cahaya Redup di Balik Kaca Jendela</h3>
+          <div class="border-b pb-3 flex justify-between items-center">
+            <div>
+              <span id="story-episode-tag" class="text-[10px] font-bold text-purple-600 uppercase tracking-widest">Episode 1</span>
+              <h3 id="story-title" class="font-bold text-base text-slate-900 font-fun">Cahaya Redup dan Pintu Kapal Starlight</h3>
+            </div>
+            <select id="select-episode" onchange="loadStoryEpisode(this.value)" class="text-xs border rounded-xl px-2 py-1 font-bold text-purple-700 bg-purple-50">
+              <option value="1">Ep. 1</option>
+              <option value="2">Ep. 2</option>
+              <option value="3">Ep. 3</option>
+              <option value="4">Ep. 4</option>
+              <option value="5">Ep. 5</option>
+              <option value="6">Ep. 6</option>
+              <option value="7">Ep. 7</option>
+            </select>
           </div>
 
           <!-- KARTUN ILUSTRASI KOMIK (SVG SCENE) -->
           <div class="bg-gradient-to-b from-sky-200 to-indigo-100 p-4 rounded-2xl border-2 border-sky-300 text-center">
             <svg class="w-full h-32 mx-auto" viewBox="0 0 200 100" fill="none">
-              <!-- Kapal Starlight Cartoon -->
               <rect x="20" y="30" width="160" height="50" rx="25" fill="#38BDF8" stroke="#0284C7" stroke-width="3"/>
               <circle cx="60" cy="55" r="12" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
               <circle cx="100" cy="55" r="12" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
               <circle cx="140" cy="55" r="12" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
-              <!-- Karakter Fathan Kartun -->
               <circle cx="60" cy="55" r="6" fill="#FDBA74"/>
               <path d="M54 62 C54 58, 66 58, 66 62" stroke="#1E293B" stroke-width="2"/>
             </svg>
-            <p class="text-[11px] font-bold text-sky-900 font-doodle mt-2">Gambar 1: Kapten Fathan melihat Planet Luminaria dari balik jendela kapal.</p>
+            <p id="story-scene-caption" class="text-[11px] font-bold text-sky-900 font-doodle mt-2">Gambar 1: Kapten Fathan melihat Planet Luminaria dari balik jendela kapal.</p>
           </div>
 
           <div id="story-text" class="text-xs text-slate-700 leading-relaxed font-doodle space-y-3 bg-amber-50/50 p-4 rounded-2xl border border-amber-200/50">
-            <!-- Teks Cerita Panjang -->
+            <!-- Teks Cerita Panjang Diisi via JavaScript -->
           </div>
         </div>
       </div>
@@ -249,7 +257,6 @@
           </div>
         </div>
 
-        <!-- BOKS TIMER DENGAN SUGESTI POSITIF -->
         <div class="bg-indigo-50 border-2 border-indigo-200 p-4 rounded-2xl text-center space-y-2">
           <p class="text-xs text-indigo-700 font-bold uppercase">Sisa Waktu Bermain Hari Ini:</p>
           <div id="game-timer-display" class="text-3xl font-bold font-fun text-indigo-900 tracking-wider">
@@ -260,7 +267,6 @@
           </p>
         </div>
 
-        <!-- TIPS SUPER BEAR DARI OTTO -->
         <div class="bg-purple-50 p-3.5 rounded-2xl border border-purple-100 text-xs text-purple-900 font-doodle space-y-1">
           <p class="font-bold text-purple-900 flex items-center space-x-1">
             <span>🐻</span> <span>Tips Super Bear dari Otto:</span>
@@ -275,7 +281,7 @@
   </main>
 
   <!-- ========================================== -->
-  <!-- MODAL PARENT DASHBOARD & VERIFIKASI MISI   -->
+  <!-- MODAL PARENT DASHBOARD                     -->
   <!-- ========================================== -->
   <div id="modal-ortu" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
@@ -295,13 +301,10 @@
 
       <!-- DASHBOARD ORTU KONTEN -->
       <div id="ortu-content-section" class="hidden space-y-4">
-        
-        <!-- VERIFIKASI LAPORAN MISI ANAK -->
+        <!-- VERIFIKASI LAPORAN MISI -->
         <div class="bg-purple-50 p-3.5 rounded-2xl border border-purple-100 space-y-2">
           <p class="text-xs font-bold text-purple-900 font-fun"> Laporan Misi Anak Membutuhkan Persetujuan:</p>
-          <div id="ortu-pending-quests-list" class="space-y-2 text-xs">
-            <!-- List Laporan Misi -->
-          </div>
+          <div id="ortu-pending-quests-list" class="space-y-2 text-xs"></div>
         </div>
 
         <!-- KONTROL BINTANG HARIAN -->
@@ -348,6 +351,7 @@
       xp: 0,
       shieldActive: false,
       storyUnlocked: false,
+      currentEpisode: 1,
       activeTab: 'quests',
       quests: [
         { id: 'a1', title: '1. Bangun baik & Minum Air', xp: 20, type: 'atomic', status: 'idle' },
@@ -362,7 +366,91 @@
         { id: 'r1', title: 'Voucher Bakso / Kebab Spesial', desc: 'Maksimal Rp 15.000', cost: 1000 },
         { id: 'r2', title: 'Voucher Extra Nonton & Game 30 Menit', desc: 'Di hari apa saja. Harus baik setelah bermain!', cost: 1500 },
         { id: 'r3', title: 'Voucher Jajan Minimarket', desc: 'Maksimal Rp 20.000', cost: 2000 }
-      ]
+      ],
+      episodes: {
+        1: {
+          title: "Cahaya Redup dan Pintu Kapal Starlight",
+          caption: "Gambar 1: Kapten Fathan melangkah keluar kapal Starlight menuju Planet Luminaria.",
+          text: `
+            <p>Kapal penjelajah <em>Starlight</em> mendarat dengan bunyi desis mesin yang halus di atas rumput keperakan Planet Luminaria. Di dalam ruang kemudi yang megah, lampu-lampu indikator berkedip warna-warni. Robot Otto, pendamping setia berpenerangan mata biru jernih, melayang mendekati Kapten Fathan.</p>
+            <p><em>"Kapten Fathan! Kita sudah sampai di batas Kota Luminaria! Lihat ke luar!"</em> seru Otto penuh semangat.</p>
+            <p>Kapten Fathan melangkah perlahan menuju kaca jendela utama yang luas. Di luar sana, anak-anak alien Starling sedang tertawa gembira memantulkan bola-bola energi cahaya pelangi. Dulu, Kapten Fathan selalu memilih berdiri diam di balik kaca ini karena rasa ragu.</p>
+            <p>Namun hari ini berbeda. Di dada baju penjelajah Fathan, <strong>Kompas Keberanian</strong> bergetar pelan. Otto berbisik: <em>"Pahlawan sejati tidak menunggu rasa takut hilang, dia melangkah bersama rasa takut itu!"</em></p>
+            <p>Fathan mengepalkan tangan kanannya dan menyerukan perisainya: <em>"Kapten Fathan Beraksi!"</em> <strong>WUUUSSHH!</strong> Pintu kapal Starlight terbuka lebar. Fathan melangkah keluar dengan mantap!</p>
+            <p>Namun, tepat saat kaki Fathan menyentuh rumput kristal, <strong>BUMMM!</strong> Tanah bergetar hebat! Dari balik kabut hitam, muncul sosok tinggi raksasa bernama <strong>Raja Ragu</strong> membawa Tongkat Pembeku Energi!</p>
+            <p>Raksasa bayangan itu mengangkat tangannya, mengarahkan sinar hitam pekat langsung ke arah Fathan! Otto berteriak: <em>"Kapten Fathan! Awas!"</em></p>
+          `
+        },
+        2: {
+          title: "Serangan Bayangan dan Tameng Kristal Pertama",
+          caption: "Gambar 2: Fathan menahan serangan sinar hitam Raja Ragu dengan Tameng Kristal.",
+          text: `
+            <p>Sinar hitam pekat menyambar udara dengan bunyi angin yang keras! Fathan merasakan dinginnya udara di sekitarnya. Pikiran lamanya berbisik: <em>Lari! Sembunyi saja di dalam kapal!</em></p>
+            <p>Namun, Fathan melihat anak-anak Starling bersembunyi di balik gerbang kota dengan mata penuh harapan. Jika Fathan lari, gerbang kota akan dihancurkan.</p>
+            <p><em>"Tidak! Aku bukan penonton lagi! Aku pemeran utamanya!"</em> teriak Fathan nyaring.</p>
+            <p>Fathan menyilangkan kedua tangannya di depan dada. <strong>KLIK!</strong> Kompas Keberanian di dadanya memancarkan sinar keemasan, membentuk <strong>Tameng Kristal Cahaya</strong>!</p>
+            <p><strong>DUAAR!</strong> Sinar hitam Raja Ragu menghantam Tameng Kristal. Fathan terdorong mundur dua langkah, namun ia tetap berdiri tegap!</p>
+            <p>Otto melempar Gelar Elemen Suara: <em>"Untuk mengalahkan bayangan ini, Kapten harus mengucapkan kata kunci dengan suara yang nyaring!"</em> Raja Ragu menciptakan gelombang bola-bola api hitam yang siap ditembakkan sekaligus!</p>
+          `
+        },
+        3: {
+          title: "Gema Suara di Tengah Gelombang Api",
+          caption: "Gambar 3: Gelombang suara emas Fathan menghancurkan bola api hitam di udara.",
+          text: `
+            <p>Bola-bola api hitam mendesis panas. Fathan meletakkan tangannya di atas Kompas Keberanian dan ingat latihan perisainya: <em>Rasa takut hanyalah tanda bahwa aku sedang bertambah kuat!</em></p>
+            <p>Fathan menatap tajam ke arah Raja Ragu dan berteriak dengan suara paling nyaring dan mantap:</p>
+            <p class="font-bold text-amber-700 text-center">"ELEMEN KEBERANIAN... GELOMBANG SUARA TINGGI!"</p>
+            <p><strong>SWUUUSSHHH!</strong> Dari mulut Fathan keluar gelombang suara berbentuk lingkaran-lingkaran emas yang sangat kuat! <strong>BUM! BUM! BUM!</strong> Bola-bola api hitam Raja Ragu meledak di udara!</p>
+            <p>Anak-anak Starling bersorak gembira. Namun, Raja Ragu semakin marah. Ia menghentakkan kakinya ke tanah, membuat tanah di bawah kaki Fathan terbelah!</p>
+            <p><strong>KRAAKK!</strong> Fathan kehilangan keseimbangan dan tubuhnya mulai tergelincir masuk ke dalam jurang bayangan!</p>
+          `
+        },
+        4: {
+          title: "Lompatan Gelombang Emas",
+          caption: "Gambar 4: Fathan melompat tinggi melompati jurang dengan sepatu pendorong roket.",
+          text: `
+            <p>Bumi bergetar hebat. Fathan bergantung pada satu bongkahan batu yang semakin melonggar di tepi jurang hitam. Raja Ragu tertawa puas: <em>"Di dalam jurang keraguan itu, kamu tidak akan pernah bisa naik lagi!"</em></p>
+            <p>Namun, Fathan menolak untuk menyerah. <em>"Aku sudah melangkah keluar kapal... Aku tidak akan kembali jadi penonton yang menyerah!"</em></p>
+            <p>Fathan mengaktifkan pendorong roket kecil di sepatu penjelajahnya. Dengan satu hentakan kuat, Fathan melompati jurang tersebut!</p>
+            <p><strong>BZZZZT!</strong> Api keemasan melontarkan tubuh Fathan tinggi ke udara, melompati kepala Raja Ragu! Di udara, Fathan melihat kelemahan raksasa bayangan itu: <strong>Kristal Ragu</strong> di dadanya!</p>
+            <p>Otto melemparkan Tongkat Komando Starlight. Fathan menangkapnya dengan sempurna di udara! Namun, Raja Ragu mengibaskan ekor bayangannya yang raksasa untuk memukul Fathan sebelum ia mendarat!</p>
+          `
+        },
+        5: {
+          title: "Ujian Tiga Rintangan dan Perisai Hati",
+          caption: "Gambar 5: Fathan memutarkan Tongkat Komando menangkis serangan ekor bayangan.",
+          text: `
+            <p><strong>WUSS!</strong> Ekor bayangan raksasa mendesing tebal. Dengan gerakan cepat, Fathan memutar Tongkat Komando Starlight. <strong>SRINGG!</strong> Lingkaran cahaya emas menangkis pukulan ekor bayangan hingga terpecah!</p>
+            <p>Raja Ragu menciptakan Tiga Rintangan Bayangan: Tembok Ragu Tinggi, Pasukan Bayangan Bisik, dan Aura Takut. Pasukan Bayangan Bisik berbisik: <em>"Lebih baik diam... Lebih baik tidak usah mencoba..."</em></p>
+            <p>Fathan meletakkan tangan kirinya di dadanya, mengaktifkan <strong>Perisai Hati</strong>: <em>"Meskipun hatiku berkurang, aku tidak akan takut! Setiap kali aku mencoba, aku makin pintar!"</em></p>
+            <p>Fathan menghentakkan Tongkat Komando ke tanah. <strong>DUUUMM!</strong> Cahaya murni Perisai Hati menghancurkan seluruh Pasukan Bayangan Bisik menjadi debu cahaya! Tinggal satu rintangan lagi: menyerang Kristal Ragu di dada raksasa!</p>
+          `
+        },
+        6: {
+          title: "Puncak Pertempuran Kristal Energi",
+          caption: "Gambar 6: Fathan menerjang gelombang hitam raksasa dengan Baju Zirah Ksatria.",
+          text: `
+            <p>Langit Planet Luminaria semakin gelap. Gelombang hitam raksasa milik Raja Ragu bergulung-gulung tinggi di udara, siap menggulung seluruh kota. Otto bergetar pelan: <em>"Kapten... energinya sangat besar. Apakah kita sanggup?"</em></p>
+            <p>Fathan menatap anak-anak Starling yang memegang tangan satu sama lain di balik gerbang. Fathan tersenyum yakin: <em>"Kita sanggup, Otto. Karena kita tidak berjuang sendirian!"</em></p>
+            <p>Fathan memutar Kompas Keberaniannya ke tingkat maksimum. Sinar emas murni membungkus tubuh Fathan, membentuk <strong>Baju Zirah Ksatria Aktif</strong>!</p>
+            <p><strong>SWRRRSH!</strong> Fathan menerjang dan membelah gelombang hitam raksasa! Ia meloncat tinggi mengarahkan Tongkat Komando Starlight langsung ke pusat Kristal Ragu!</p>
+            <p class="font-bold text-amber-700 text-center font-fun">"SERANGAN PENJERNIHAN... KAPTEN FATHAN BERAKSI!"</p>
+          `
+        },
+        7: {
+          title: "Lencana Ksatria Aktif dan Kemenangan Pertama",
+          caption: "Gambar 7: Fathan menerima Lencana Ksatria Aktif Pertama di Planet Luminaria.",
+          text: `
+            <p><strong>CRAAAKKK... DUAARRR!</strong> Kristal Ragu pecah menjadi jutaan percikan cahaya emas yang indah! Raja Ragu menguap dan berubah menjadi kelopak bunga cahaya yang harum. Kabut hitam sirna seketika!</p>
+            <p>Anak-anak Starling berlari mendekati Fathan sambil bertepuk tangan gembira: <em>"Horeee! Kapten Fathan pahlawan kita!"</em></p>
+            <p>Dari balik percikan cahaya, melayang turun <strong>Lencana Ksatria Aktif Pertama</strong>! Di atas lencana tertulis pesan emas:</p>
+            <div class="bg-amber-100 p-3 rounded-xl text-center border border-amber-300 font-bold text-amber-900">
+              "Pahlawan Sejati Bukanlah Orang yang Tidak Pernah Takut, Melainkan Orang yang Berani Melangkah dan Bersuara Meskipun Dadanya Berdebar."
+            </div>
+            <p>Fathan memegang lencananya dan tersenyum puas. <em>"Ini baru awal petualangan. Di planet berikutnya, aku siap menghadapi rintangan apa pun!"</em></p>
+          `
+        }
+      }
     };
 
     // INIT
@@ -372,7 +460,6 @@
       renderRewards();
     };
 
-    // TRIGGER CONFETTI
     function triggerConfetti() {
       if (typeof confetti === 'function') {
         confetti({
@@ -591,22 +678,24 @@
       
       const lockedNotice = document.getElementById('story-locked-notice');
       const reader = document.getElementById('story-reader');
-      const textEl = document.getElementById('story-text');
 
       if (lockedNotice) lockedNotice.classList.add('hidden');
       if (reader) reader.classList.remove('hidden');
 
-      if (textEl) {
-        textEl.innerHTML = `
-          <p>Kapal Starlight mendarat dengan bunyi desis pelan di atas rumput keperakan Planet Luminaria. Di dalam ruang kemudi, Otto mendekati meja utama. <em>"Kapten Fathan, kita sudah sampai di pinggir Kota Luminaria! Lihat ke luar jendela!"</em></p>
-          <p>Kapten Fathan berjalan pelan ke arah kaca jendela kapal yang besar. Di luar sana, anak-anak alien Starling sedang berlari-lari ceria memantulkan bola cahaya pelangi. Dulu, Fathan hanya duduk di balik kaca ini karena ragu.</p>
-          <p>Namun hari ini, Otto mengingatkan: <em>"Kompas keberanian tidak akan pernah bersinar jika Kapten hanya menonton dari balik kaca!"</em></p>
-          <p>Dengan memetik perisainya, Kapten Fathan menekan tombol pintu. <strong>WUUUSSHH!</strong> Pintu kapal terbuka lebar dan Kapten Fathan melangkah keluar dengan gagah!</p>
-        `;
-      }
-
+      loadStoryEpisode(state.currentEpisode);
       alert('Cerita Hari Ini Berhasil Dibuka!');
       switchTab('story');
+    }
+
+    function loadStoryEpisode(epNum) {
+      state.currentEpisode = epNum;
+      const epData = state.episodes[epNum];
+      if (epData) {
+        document.getElementById('story-episode-tag').innerText = `Episode ${epNum}`;
+        document.getElementById('story-title').innerText = epData.title;
+        document.getElementById('story-scene-caption').innerText = epData.caption;
+        document.getElementById('story-text').innerHTML = epData.text;
+      }
     }
 
     function addCustomQuest() {
@@ -628,7 +717,7 @@
       }
     }
 
-    // FUNGSI UTAMA PENGIRIMAN DATA KE GAS
+    // FUNGSI PENGIRIMAN DATA KE GAS
     function sendDataToGAS(payload) {
       if (!DEFAULT_GAS_URL || DEFAULT_GAS_URL.includes("AKfycbx...")) {
         console.warn("GAS_URL belum diisi pada berkas index.html!");
