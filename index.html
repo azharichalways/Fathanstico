@@ -4,11 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fathanstico - Petualangan Kapten Fathan</title>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Playful / Hand-drawn ala Fabulous -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Mali:wght@500;600;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
-  <!-- Canvas Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   
   <style>
@@ -18,14 +15,9 @@
       background-image: radial-gradient(#E2E8F0 1px, transparent 1px);
       background-size: 20px 20px;
     }
-    .font-doodle {
-      font-family: 'Mali', cursive;
-    }
-    .font-fun {
-      font-family: 'Fredoka', cursive;
-    }
+    .font-doodle { font-family: 'Mali', cursive; }
+    .font-fun { font-family: 'Fredoka', cursive; }
     
-    /* Style Kartu Cartoon Pastel Fabulous */
     .card-fabulous-purple {
       background: linear-gradient(135deg, #A855F7 0%, #7C3AED 100%);
       box-shadow: 0 12px 28px -6px rgba(124, 58, 237, 0.35);
@@ -43,43 +35,28 @@
       border-radius: 24px;
     }
     
-    /* Tombol Style Fabulous */
     .btn-fab-yellow {
-      background: #FBBF24;
-      color: #78350F;
-      box-shadow: 0 4px 0px #D97706;
-      border-radius: 999px;
-      font-weight: 700;
+      background: #FBBF24; color: #78350F;
+      box-shadow: 0 4px 0px #D97706; border-radius: 999px; font-weight: 700;
     }
-    .btn-fab-yellow:active {
-      transform: translateY(3px);
-      box-shadow: 0 1px 0px #D97706;
-    }
+    .btn-fab-yellow:active { transform: translateY(3px); box-shadow: 0 1px 0px #D97706; }
+    
     .btn-fab-blue {
-      background: #38BDF8;
-      color: #0C4A6E;
-      box-shadow: 0 4px 0px #0284C7;
-      border-radius: 999px;
-      font-weight: 700;
+      background: #38BDF8; color: #0C4A6E;
+      box-shadow: 0 4px 0px #0284C7; border-radius: 999px; font-weight: 700;
     }
-    .btn-fab-blue:active {
-      transform: translateY(3px);
-      box-shadow: 0 1px 0px #0284C7;
-    }
+    .btn-fab-blue:active { transform: translateY(3px); box-shadow: 0 1px 0px #0284C7; }
   </style>
 </head>
 <body class="min-h-screen pb-16 text-slate-800">
 
-  <!-- ========================================== -->
-  <!-- KONFIGURASI GAS TERINTEGRASI               -->
-  <!-- ========================================== -->
   <script>
     const DEFAULT_GAS_URL = "https://script.google.com/macros/s/AKfycbyFLQ-TVFD1xllVXEjFlCJqVjjXvDUoA9H_0c9zysiEw7eZWQmf0SJt5LB6gr83hDJ8kA/exec";
   </script>
 
   <main class="max-w-md mx-auto px-4 pt-6 space-y-5">
 
-    <!-- 1. HEADER PROFILE KAPTEN FATHAN -->
+    <!-- 1. HEADER PROFILE & STREAK MINGGUAN -->
     <header class="card-fabulous-purple p-5 text-white relative overflow-hidden">
       <div class="flex justify-between items-start">
         <div class="flex items-center space-x-3.5">
@@ -89,9 +66,9 @@
           <div>
             <div class="flex items-center space-x-2">
               <h1 class="text-xl font-bold font-fun tracking-wide">Kapten Fathan</h1>
-              <span class="bg-amber-300 text-amber-950 text-[10px] font-bold px-2 py-0.5 rounded-full">Lv. 3</span>
+              <span id="streak-title" class="bg-amber-300 text-amber-950 text-[10px] font-bold px-2 py-0.5 rounded-full font-fun">🔥 Pejuang Keberanian</span>
             </div>
-            <p class="text-xs text-purple-200 font-doodle">Ksatria Keberanian Galaksi</p>
+            <p id="streak-count-text" class="text-xs text-purple-200 font-doodle">Streak: 1 Hari Beruntun!</p>
           </div>
         </div>
 
@@ -101,7 +78,7 @@
         </button>
       </div>
 
-      <!-- BINTANG HARIAN & TABUNAN XP -->
+      <!-- BINTANG HARIAN & TABUNGAN XP -->
       <div class="mt-4 pt-3 border-t border-white/20 flex items-center justify-between">
         <div class="flex items-center space-x-1">
           <span class="text-xs font-bold text-purple-200 mr-1">BINTANG:</span>
@@ -110,7 +87,7 @@
           </div>
         </div>
         <div class="bg-white/15 px-3 py-1 rounded-full border border-white/20 text-xs font-bold text-amber-300 flex items-center space-x-1">
-          <span>⚡ TABUNGAN XP:</span>
+          <span>⚡ XP:</span>
           <span id="header-xp-val">0 XP</span>
         </div>
       </div>
@@ -151,23 +128,22 @@
     <!-- 3. TAB NAVIGASI UTAMA -->
     <nav class="grid grid-cols-4 gap-2">
       <button id="tab-btn-quests" onclick="switchTab('quests')" class="py-3 bg-purple-600 text-white rounded-2xl text-center shadow-md font-bold text-xs font-fun transition">
-        <span class="block text-base mb-0.5">📋</span> Misi Harian
+        <span class="block text-base mb-0.5">📋</span> Misi
       </button>
       <button id="tab-btn-story" onclick="switchTab('story')" class="py-3 bg-white text-slate-500 rounded-2xl text-center border-2 border-slate-100 font-bold text-xs font-fun transition">
-        <span class="block text-base mb-0.5">📖</span> Komik Story
+        <span class="block text-base mb-0.5">📖</span> Cerita
+      </button>
+      <button id="tab-btn-rapor" onclick="switchTab('rapor')" class="py-3 bg-white text-slate-500 rounded-2xl text-center border-2 border-slate-100 font-bold text-xs font-fun transition">
+        <span class="block text-base mb-0.5">📜</span> Rapor
       </button>
       <button id="tab-btn-rewards" onclick="switchTab('rewards')" class="py-3 bg-white text-slate-500 rounded-2xl text-center border-2 border-slate-100 font-bold text-xs font-fun transition">
         <span class="block text-base mb-0.5">🎁</span> Loot Box
       </button>
-      <button id="tab-btn-game" onclick="switchTab('game')" class="py-3 bg-white text-slate-500 rounded-2xl text-center border-2 border-slate-100 font-bold text-xs font-fun transition">
-        <span class="block text-base mb-0.5">🎮</span> Game Time
-      </button>
     </nav>
 
-    <!-- ================= KONTEN TAB 1: MISI HARIAN ================= -->
+    <!-- ================= TAB 1: MISI HARIAN ================= -->
     <div id="tab-content-quests" class="space-y-4">
       <div class="card-fabulous-white p-5 space-y-4">
-        <!-- KEBIASAAN ATOMIK -->
         <div>
           <h3 class="text-xs font-bold font-fun uppercase tracking-wider text-purple-600 mb-2.5 flex items-center space-x-1">
             <span>🌱</span> <span>1. Kebiasaan Rutin Atomik</span>
@@ -175,7 +151,6 @@
           <div id="container-atomic-quests" class="space-y-2"></div>
         </div>
 
-        <!-- MISI KEBERANIAN -->
         <div class="pt-2 border-t border-slate-100">
           <h3 class="text-xs font-bold font-fun uppercase tracking-wider text-amber-600 mb-2.5 flex items-center space-x-1">
             <span>🦁</span> <span>2. Misi Keberanian Ksatria</span>
@@ -185,104 +160,89 @@
       </div>
     </div>
 
-    <!-- ================= KONTEN TAB 2: KOMIK STORY ================= -->
+    <!-- ================= TAB 2: CERITA (1 HARI = 1 EPISODE) ================= -->
     <div id="tab-content-story" class="hidden space-y-4">
       <div class="card-fabulous-white p-5">
         <div id="story-locked-notice" class="bg-amber-50 border-2 border-dashed border-amber-300 p-6 rounded-2xl text-center space-y-2">
           <span class="text-4xl block">🔒</span>
           <h4 class="font-bold text-sm text-amber-900 font-fun">Cerita Hari Ini Terkunci</h4>
           <p class="text-xs text-amber-800 font-doodle">
-            Minta Ayah atau Ibu mengkonfirmasi penyelesaian misimu di Dashboard Ortu untuk membuka episode hari ini!
+            Selesaikan misimu dan minta Ayah/Ibu mengkonfirmasi Bintang di Dashboard Ortu untuk membuka episode khusus hari ini!
           </p>
         </div>
 
         <div id="story-reader" class="hidden space-y-4">
           <div class="border-b pb-3 flex justify-between items-center">
             <div>
-              <span id="story-episode-tag" class="text-[10px] font-bold text-purple-600 uppercase tracking-widest">Episode 1</span>
-              <h3 id="story-title" class="font-bold text-base text-slate-900 font-fun">Cahaya Redup dan Pintu Kapal Starlight</h3>
+              <span id="story-episode-tag" class="text-[10px] font-bold text-purple-600 uppercase tracking-widest font-fun">Episode Hari Ini</span>
+              <h3 id="story-title" class="font-bold text-base text-slate-900 font-fun">Memuat Cerita...</h3>
             </div>
-            <select id="select-episode" onchange="loadStoryEpisode(this.value)" class="text-xs border rounded-xl px-2 py-1 font-bold text-purple-700 bg-purple-50">
-              <option value="1">Ep. 1</option>
-              <option value="2">Ep. 2</option>
-              <option value="3">Ep. 3</option>
-              <option value="4">Ep. 4</option>
-              <option value="5">Ep. 5</option>
-              <option value="6">Ep. 6</option>
-              <option value="7">Ep. 7</option>
-            </select>
           </div>
 
-          <!-- KARTUN ILUSTRASI KOMIK (SVG SCENE) -->
+          <!-- VIDEO YOUTUBE CONTAINER -->
+          <div id="story-video-container" class="hidden aspect-video rounded-2xl overflow-hidden shadow-md border-2 border-purple-200">
+            <iframe id="story-video-iframe" class="w-full h-full" src="" frameborder="0" allowfullscreen></iframe>
+          </div>
+
+          <!-- ILUSTRASI GAMBAR -->
           <div class="bg-gradient-to-b from-sky-200 to-indigo-100 p-4 rounded-2xl border-2 border-sky-300 text-center">
-            <svg class="w-full h-32 mx-auto" viewBox="0 0 200 100" fill="none">
-              <rect x="20" y="30" width="160" height="50" rx="25" fill="#38BDF8" stroke="#0284C7" stroke-width="3"/>
-              <circle cx="60" cy="55" r="12" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
-              <circle cx="100" cy="55" r="12" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
-              <circle cx="140" cy="55" r="12" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
-              <circle cx="60" cy="55" r="6" fill="#FDBA74"/>
-              <path d="M54 62 C54 58, 66 58, 66 62" stroke="#1E293B" stroke-width="2"/>
-            </svg>
-            <p id="story-scene-caption" class="text-[11px] font-bold text-sky-900 font-doodle mt-2">Gambar 1: Kapten Fathan melihat Planet Luminaria dari balik jendela kapal.</p>
+            <p id="story-scene-caption" class="text-[11px] font-bold text-sky-900 font-doodle">Gambar Adegan Episode Hari Ini</p>
           </div>
 
+          <!-- TEKS CERITA PANJANG DARI GOOGLE SHEETS -->
           <div id="story-text" class="text-xs text-slate-700 leading-relaxed font-doodle space-y-3 bg-amber-50/50 p-4 rounded-2xl border border-amber-200/50">
-            <!-- Teks Cerita Panjang Diisi via JavaScript -->
+            Memuat naskah dari Google Sheets...
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ================= KONTEN TAB 3: LOOT BOX (REWARD) ================= -->
+    <!-- ================= TAB 3: RAPOR MINGGUAN ================= -->
+    <div id="tab-content-rapor" class="hidden space-y-4">
+      <div class="card-fabulous-white p-5 space-y-4">
+        <div class="border-b pb-2 flex justify-between items-center">
+          <div>
+            <h3 class="font-bold font-fun text-sm text-purple-900">📜 Rapor Keberanian Minggu Ini</h3>
+            <p class="text-[11px] text-slate-500 font-doodle">Laporan evaluasi perkembangan Kapten Fathan</p>
+          </div>
+        </div>
+
+        <!-- BOKS EVALUASI SEMANGAT -->
+        <div id="rapor-eval-box" class="p-4 rounded-2xl border-2 text-xs font-doodle space-y-2">
+          <!-- Evaluasi Otomatis -->
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-center font-fun">
+          <div class="bg-purple-50 p-3 rounded-2xl border border-purple-100">
+            <span class="text-2xl block mb-1">⭐</span>
+            <span class="text-[10px] text-purple-600 block">TOTAL BINTANG</span>
+            <span id="rapor-total-stars" class="font-bold text-base text-purple-950">5 / 5</span>
+          </div>
+          <div class="bg-amber-50 p-3 rounded-2xl border border-amber-100">
+            <span class="text-2xl block mb-1">⚡</span>
+            <span class="text-[10px] text-amber-700 block">XP MINGGU INI</span>
+            <span id="rapor-total-xp" class="font-bold text-base text-amber-950">0 XP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TAB 4: LOOT BOX ================= -->
     <div id="tab-content-rewards" class="hidden space-y-4">
       <div class="card-fabulous-white p-5 space-y-3">
         <div class="border-b pb-2">
           <h3 class="font-bold font-fun text-sm text-amber-600 flex items-center space-x-1">
             <span>🎁</span> <span>Toko Harta Karun (Loot Box)</span>
           </h3>
-          <p class="text-[11px] text-slate-500 font-doodle">Tukarkan XP keberanianmu dengan voucher hadiah dari Ortu!</p>
+          <p class="text-[11px] text-slate-500 font-doodle">Tukarkan XP keberanianmu dengan voucher dari Ortu!</p>
         </div>
         <div id="container-rewards-list" class="space-y-3"></div>
       </div>
     </div>
 
-    <!-- ================= KONTEN TAB 4: GAME TIME & TIMER ================= -->
-    <div id="tab-content-game" class="hidden space-y-4">
-      <div class="card-fabulous-white p-5 space-y-4">
-        <div class="flex items-center space-x-2 border-b pb-3">
-          <span class="text-2xl">🎮</span>
-          <div>
-            <h3 class="font-bold font-fun text-sm text-indigo-900">Timer Game & Nonton</h3>
-            <p class="text-[11px] text-slate-500 font-doodle">Sabtu, Minggu & Hari Libur (3 Jam/Hari)</p>
-          </div>
-        </div>
-
-        <div class="bg-indigo-50 border-2 border-indigo-200 p-4 rounded-2xl text-center space-y-2">
-          <p class="text-xs text-indigo-700 font-bold uppercase">Sisa Waktu Bermain Hari Ini:</p>
-          <div id="game-timer-display" class="text-3xl font-bold font-fun text-indigo-900 tracking-wider">
-            03 : 00 : 00
-          </div>
-          <p id="game-timer-status" class="text-[11px] text-indigo-600 font-doodle">
-            💡 Saat timer habis, anak baik akan tersenyum dan merapikan gamenya dengan tertib!
-          </p>
-        </div>
-
-        <div class="bg-purple-50 p-3.5 rounded-2xl border border-purple-100 text-xs text-purple-900 font-doodle space-y-1">
-          <p class="font-bold text-purple-900 flex items-center space-x-1">
-            <span>🐻</span> <span>Tips Super Bear dari Otto:</span>
-          </p>
-          <p class="text-[11px] leading-relaxed">
-            "Saat main Super Bear, kalau hatimu berkurang, tidak apa-apa! Itu artinya beruangmu makin pintar berlatih. Jangan berikan stik game ke Ayah, hadapi musuhnya bersama!"
-          </p>
-        </div>
-      </div>
-    </div>
-
   </main>
 
-  <!-- ========================================== -->
-  <!-- MODAL PARENT DASHBOARD                     -->
-  <!-- ========================================== -->
+  <!-- ================= MODAL ORTU ================= -->
   <div id="modal-ortu" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center border-b pb-3">
@@ -290,7 +250,6 @@
         <button onclick="toggleOrtuModal()" class="text-slate-400 hover:text-slate-600 text-lg">✕</button>
       </div>
 
-      <!-- AUTH PIN -->
       <div id="ortu-auth-section" class="space-y-3">
         <p class="text-xs text-slate-500">Masukkan PIN 4 digit Ortu:</p>
         <input type="password" id="input-pin" maxlength="4" placeholder="****" class="w-full text-center tracking-widest text-lg font-bold py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400">
@@ -299,18 +258,15 @@
         </button>
       </div>
 
-      <!-- DASHBOARD ORTU KONTEN -->
       <div id="ortu-content-section" class="hidden space-y-4">
-        <!-- VERIFIKASI LAPORAN MISI -->
         <div class="bg-purple-50 p-3.5 rounded-2xl border border-purple-100 space-y-2">
-          <p class="text-xs font-bold text-purple-900 font-fun"> Laporan Misi Anak Membutuhkan Persetujuan:</p>
+          <p class="text-xs font-bold text-purple-900 font-fun"> Laporan Misi Membutuhkan Persetujuan:</p>
           <div id="ortu-pending-quests-list" class="space-y-2 text-xs"></div>
         </div>
 
-        <!-- KONTROL BINTANG HARIAN -->
         <div class="bg-amber-50 p-3.5 rounded-2xl border border-amber-200 flex items-center justify-between">
           <div>
-            <p class="text-[10px] font-bold text-amber-800 uppercase">Atur Bintang Hari Ini:</p>
+            <p class="text-[10px] font-bold text-amber-800 uppercase">Bintang Hari Ini:</p>
             <p id="ortu-stars-display" class="font-bold text-sm text-amber-950 font-fun">5 / 5 ⭐</p>
           </div>
           <div class="space-x-1">
@@ -319,39 +275,20 @@
           </div>
         </div>
 
-        <!-- KONFIRMASI MISI & BUKA CERITA -->
         <button onclick="confirmAndUnlockStory()" class="w-full btn-fab-yellow py-3 text-xs flex items-center justify-center space-x-1.5">
-          <span>🔓</span> <span>Konfirmasi Misi & Buka Cerita Hari Ini</span>
+          <span>🔓</span> <span>Konfirmasi & Buka Cerita Hari Ini</span>
         </button>
-
-        <!-- TAMBAH MISI CUSTOM -->
-        <div class="border-t pt-3 space-y-2">
-          <p class="text-xs font-bold text-slate-700 font-fun">Berikan Misi Tambahan:</p>
-          <input type="text" id="custom-quest-title" placeholder="Nama Misi (misal: Bantu Rapikan Meja)" class="w-full px-3 py-2 border text-xs rounded-xl focus:outline-none focus:ring-1 focus:ring-purple-400">
-          <div class="flex space-x-2">
-            <select id="custom-quest-reward-type" class="text-xs border rounded-xl px-2 py-1 bg-slate-50">
-              <option value="XP">+ XP</option>
-              <option value="Star">+ Bintang</option>
-            </select>
-            <input type="number" id="custom-quest-reward-val" placeholder="Nilai (misal: 50)" class="w-full px-3 py-1.5 border text-xs rounded-xl">
-          </div>
-          <button onclick="addCustomQuest()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded-xl text-xs transition">
-            + Tambahkan Misi
-          </button>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- SCRIPT LOGIKA UTAMA -->
   <script>
-    // DATA APPS STATE
     let state = {
       stars: 5,
       xp: 0,
-      shieldActive: false,
+      streak: 1,
+      currentDayEpisode: 1,
       storyUnlocked: false,
-      currentEpisode: 1,
       activeTab: 'quests',
       quests: [
         { id: 'a1', title: '1. Bangun baik & Minum Air', xp: 20, type: 'atomic', status: 'idle' },
@@ -366,108 +303,25 @@
         { id: 'r1', title: 'Voucher Bakso / Kebab Spesial', desc: 'Maksimal Rp 15.000', cost: 1000 },
         { id: 'r2', title: 'Voucher Extra Nonton & Game 30 Menit', desc: 'Di hari apa saja. Harus baik setelah bermain!', cost: 1500 },
         { id: 'r3', title: 'Voucher Jajan Minimarket', desc: 'Maksimal Rp 20.000', cost: 2000 }
-      ],
-      episodes: {
-        1: {
-          title: "Cahaya Redup dan Pintu Kapal Starlight",
-          caption: "Gambar 1: Kapten Fathan melangkah keluar kapal Starlight menuju Planet Luminaria.",
-          text: `
-            <p>Kapal penjelajah <em>Starlight</em> mendarat dengan bunyi desis mesin yang halus di atas rumput keperakan Planet Luminaria. Di dalam ruang kemudi yang megah, lampu-lampu indikator berkedip warna-warni. Robot Otto, pendamping setia berpenerangan mata biru jernih, melayang mendekati Kapten Fathan.</p>
-            <p><em>"Kapten Fathan! Kita sudah sampai di batas Kota Luminaria! Lihat ke luar!"</em> seru Otto penuh semangat.</p>
-            <p>Kapten Fathan melangkah perlahan menuju kaca jendela utama yang luas. Di luar sana, anak-anak alien Starling sedang tertawa gembira memantulkan bola-bola energi cahaya pelangi. Dulu, Kapten Fathan selalu memilih berdiri diam di balik kaca ini karena rasa ragu.</p>
-            <p>Namun hari ini berbeda. Di dada baju penjelajah Fathan, <strong>Kompas Keberanian</strong> bergetar pelan. Otto berbisik: <em>"Pahlawan sejati tidak menunggu rasa takut hilang, dia melangkah bersama rasa takut itu!"</em></p>
-            <p>Fathan mengepalkan tangan kanannya dan menyerukan perisainya: <em>"Kapten Fathan Beraksi!"</em> <strong>WUUUSSHH!</strong> Pintu kapal Starlight terbuka lebar. Fathan melangkah keluar dengan mantap!</p>
-            <p>Namun, tepat saat kaki Fathan menyentuh rumput kristal, <strong>BUMMM!</strong> Tanah bergetar hebat! Dari balik kabut hitam, muncul sosok tinggi raksasa bernama <strong>Raja Ragu</strong> membawa Tongkat Pembeku Energi!</p>
-            <p>Raksasa bayangan itu mengangkat tangannya, mengarahkan sinar hitam pekat langsung ke arah Fathan! Otto berteriak: <em>"Kapten Fathan! Awas!"</em></p>
-          `
-        },
-        2: {
-          title: "Serangan Bayangan dan Tameng Kristal Pertama",
-          caption: "Gambar 2: Fathan menahan serangan sinar hitam Raja Ragu dengan Tameng Kristal.",
-          text: `
-            <p>Sinar hitam pekat menyambar udara dengan bunyi angin yang keras! Fathan merasakan dinginnya udara di sekitarnya. Pikiran lamanya berbisik: <em>Lari! Sembunyi saja di dalam kapal!</em></p>
-            <p>Namun, Fathan melihat anak-anak Starling bersembunyi di balik gerbang kota dengan mata penuh harapan. Jika Fathan lari, gerbang kota akan dihancurkan.</p>
-            <p><em>"Tidak! Aku bukan penonton lagi! Aku pemeran utamanya!"</em> teriak Fathan nyaring.</p>
-            <p>Fathan menyilangkan kedua tangannya di depan dada. <strong>KLIK!</strong> Kompas Keberanian di dadanya memancarkan sinar keemasan, membentuk <strong>Tameng Kristal Cahaya</strong>!</p>
-            <p><strong>DUAAR!</strong> Sinar hitam Raja Ragu menghantam Tameng Kristal. Fathan terdorong mundur dua langkah, namun ia tetap berdiri tegap!</p>
-            <p>Otto melempar Gelar Elemen Suara: <em>"Untuk mengalahkan bayangan ini, Kapten harus mengucapkan kata kunci dengan suara yang nyaring!"</em> Raja Ragu menciptakan gelombang bola-bola api hitam yang siap ditembakkan sekaligus!</p>
-          `
-        },
-        3: {
-          title: "Gema Suara di Tengah Gelombang Api",
-          caption: "Gambar 3: Gelombang suara emas Fathan menghancurkan bola api hitam di udara.",
-          text: `
-            <p>Bola-bola api hitam mendesis panas. Fathan meletakkan tangannya di atas Kompas Keberanian dan ingat latihan perisainya: <em>Rasa takut hanyalah tanda bahwa aku sedang bertambah kuat!</em></p>
-            <p>Fathan menatap tajam ke arah Raja Ragu dan berteriak dengan suara paling nyaring dan mantap:</p>
-            <p class="font-bold text-amber-700 text-center">"ELEMEN KEBERANIAN... GELOMBANG SUARA TINGGI!"</p>
-            <p><strong>SWUUUSSHHH!</strong> Dari mulut Fathan keluar gelombang suara berbentuk lingkaran-lingkaran emas yang sangat kuat! <strong>BUM! BUM! BUM!</strong> Bola-bola api hitam Raja Ragu meledak di udara!</p>
-            <p>Anak-anak Starling bersorak gembira. Namun, Raja Ragu semakin marah. Ia menghentakkan kakinya ke tanah, membuat tanah di bawah kaki Fathan terbelah!</p>
-            <p><strong>KRAAKK!</strong> Fathan kehilangan keseimbangan dan tubuhnya mulai tergelincir masuk ke dalam jurang bayangan!</p>
-          `
-        },
-        4: {
-          title: "Lompatan Gelombang Emas",
-          caption: "Gambar 4: Fathan melompat tinggi melompati jurang dengan sepatu pendorong roket.",
-          text: `
-            <p>Bumi bergetar hebat. Fathan bergantung pada satu bongkahan batu yang semakin melonggar di tepi jurang hitam. Raja Ragu tertawa puas: <em>"Di dalam jurang keraguan itu, kamu tidak akan pernah bisa naik lagi!"</em></p>
-            <p>Namun, Fathan menolak untuk menyerah. <em>"Aku sudah melangkah keluar kapal... Aku tidak akan kembali jadi penonton yang menyerah!"</em></p>
-            <p>Fathan mengaktifkan pendorong roket kecil di sepatu penjelajahnya. Dengan satu hentakan kuat, Fathan melompati jurang tersebut!</p>
-            <p><strong>BZZZZT!</strong> Api keemasan melontarkan tubuh Fathan tinggi ke udara, melompati kepala Raja Ragu! Di udara, Fathan melihat kelemahan raksasa bayangan itu: <strong>Kristal Ragu</strong> di dadanya!</p>
-            <p>Otto melemparkan Tongkat Komando Starlight. Fathan menangkapnya dengan sempurna di udara! Namun, Raja Ragu mengibaskan ekor bayangannya yang raksasa untuk memukul Fathan sebelum ia mendarat!</p>
-          `
-        },
-        5: {
-          title: "Ujian Tiga Rintangan dan Perisai Hati",
-          caption: "Gambar 5: Fathan memutarkan Tongkat Komando menangkis serangan ekor bayangan.",
-          text: `
-            <p><strong>WUSS!</strong> Ekor bayangan raksasa mendesing tebal. Dengan gerakan cepat, Fathan memutar Tongkat Komando Starlight. <strong>SRINGG!</strong> Lingkaran cahaya emas menangkis pukulan ekor bayangan hingga terpecah!</p>
-            <p>Raja Ragu menciptakan Tiga Rintangan Bayangan: Tembok Ragu Tinggi, Pasukan Bayangan Bisik, dan Aura Takut. Pasukan Bayangan Bisik berbisik: <em>"Lebih baik diam... Lebih baik tidak usah mencoba..."</em></p>
-            <p>Fathan meletakkan tangan kirinya di dadanya, mengaktifkan <strong>Perisai Hati</strong>: <em>"Meskipun hatiku berkurang, aku tidak akan takut! Setiap kali aku mencoba, aku makin pintar!"</em></p>
-            <p>Fathan menghentakkan Tongkat Komando ke tanah. <strong>DUUUMM!</strong> Cahaya murni Perisai Hati menghancurkan seluruh Pasukan Bayangan Bisik menjadi debu cahaya! Tinggal satu rintangan lagi: menyerang Kristal Ragu di dada raksasa!</p>
-          `
-        },
-        6: {
-          title: "Puncak Pertempuran Kristal Energi",
-          caption: "Gambar 6: Fathan menerjang gelombang hitam raksasa dengan Baju Zirah Ksatria.",
-          text: `
-            <p>Langit Planet Luminaria semakin gelap. Gelombang hitam raksasa milik Raja Ragu bergulung-gulung tinggi di udara, siap menggulung seluruh kota. Otto bergetar pelan: <em>"Kapten... energinya sangat besar. Apakah kita sanggup?"</em></p>
-            <p>Fathan menatap anak-anak Starling yang memegang tangan satu sama lain di balik gerbang. Fathan tersenyum yakin: <em>"Kita sanggup, Otto. Karena kita tidak berjuang sendirian!"</em></p>
-            <p>Fathan memutar Kompas Keberaniannya ke tingkat maksimum. Sinar emas murni membungkus tubuh Fathan, membentuk <strong>Baju Zirah Ksatria Aktif</strong>!</p>
-            <p><strong>SWRRRSH!</strong> Fathan menerjang dan membelah gelombang hitam raksasa! Ia meloncat tinggi mengarahkan Tongkat Komando Starlight langsung ke pusat Kristal Ragu!</p>
-            <p class="font-bold text-amber-700 text-center font-fun">"SERANGAN PENJERNIHAN... KAPTEN FATHAN BERAKSI!"</p>
-          `
-        },
-        7: {
-          title: "Lencana Ksatria Aktif dan Kemenangan Pertama",
-          caption: "Gambar 7: Fathan menerima Lencana Ksatria Aktif Pertama di Planet Luminaria.",
-          text: `
-            <p><strong>CRAAAKKK... DUAARRR!</strong> Kristal Ragu pecah menjadi jutaan percikan cahaya emas yang indah! Raja Ragu menguap dan berubah menjadi kelopak bunga cahaya yang harum. Kabut hitam sirna seketika!</p>
-            <p>Anak-anak Starling berlari mendekati Fathan sambil bertepuk tangan gembira: <em>"Horeee! Kapten Fathan pahlawan kita!"</em></p>
-            <p>Dari balik percikan cahaya, melayang turun <strong>Lencana Ksatria Aktif Pertama</strong>! Di atas lencana tertulis pesan emas:</p>
-            <div class="bg-amber-100 p-3 rounded-xl text-center border border-amber-300 font-bold text-amber-900">
-              "Pahlawan Sejati Bukanlah Orang yang Tidak Pernah Takut, Melainkan Orang yang Berani Melangkah dan Bersuara Meskipun Dadanya Berdebar."
-            </div>
-            <p>Fathan memegang lencananya dan tersenyum puas. <em>"Ini baru awal petualangan. Di planet berikutnya, aku siap menghadapi rintangan apa pun!"</em></p>
-          `
-        }
-      }
+      ]
     };
 
-    // INIT
+    const streakTitles = [
+      "🔥 Pejuang Keberanian",
+      "⚡ Ksatria Tangguh",
+      "🛡️ Pelindung Galaksi",
+      "🌟 Kapten Utama Keberanian"
+    ];
+
     window.onload = function() {
       renderHeader();
       renderQuests();
       renderRewards();
+      renderRapor();
     };
 
     function triggerConfetti() {
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      }
+      if (typeof confetti === 'function') confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
     }
 
     function renderHeader() {
@@ -480,116 +334,77 @@
           container.appendChild(star);
         }
       }
-      const xpEl = document.getElementById('header-xp-val');
-      if (xpEl) xpEl.innerText = `${state.xp} XP`;
+      document.getElementById('header-xp-val').innerText = `${state.xp} XP`;
+      
+      const titleIndex = Math.min(Math.floor((state.streak - 1) / 7), streakTitles.length - 1);
+      document.getElementById('streak-title').innerText = streakTitles[titleIndex];
+      document.getElementById('streak-count-text').innerText = `Streak: ${state.streak} Hari Beruntun!`;
     }
 
     function switchTab(tabName) {
       state.activeTab = tabName;
-      ['quests', 'story', 'rewards', 'game'].forEach(t => {
+      ['quests', 'story', 'rapor', 'rewards'].forEach(t => {
         const content = document.getElementById(`tab-content-${t}`);
         const btn = document.getElementById(`tab-btn-${t}`);
         if (content) content.classList.add('hidden');
-        if (btn) {
-          btn.className = "py-3 bg-white text-slate-500 rounded-2xl text-center border-2 border-slate-100 font-bold text-xs font-fun transition";
-        }
+        if (btn) btn.className = "py-3 bg-white text-slate-500 rounded-2xl text-center border-2 border-slate-100 font-bold text-xs font-fun transition";
       });
 
-      const activeContent = document.getElementById(`tab-content-${tabName}`);
-      const activeBtn = document.getElementById(`tab-btn-${tabName}`);
-      if (activeContent) activeContent.classList.remove('hidden');
-      if (activeBtn) {
-        activeBtn.className = "py-3 bg-purple-600 text-white rounded-2xl text-center shadow-md font-bold text-xs font-fun transition";
-      }
+      document.getElementById(`tab-content-${tabName}`).classList.remove('hidden');
+      document.getElementById(`tab-btn-${tabName}`).className = "py-3 bg-purple-600 text-white rounded-2xl text-center shadow-md font-bold text-xs font-fun transition";
     }
 
     function activateShield() {
       triggerConfetti();
-      state.shieldActive = true;
-      
-      const shieldIcon = document.getElementById('shield-icon');
-      const shieldText = document.getElementById('shield-text');
-      const ottoDialog = document.getElementById('otto-dialog');
+      document.getElementById('shield-icon').innerText = "🛡️";
+      document.getElementById('shield-text').innerText = 'Kepal Tangan & Katakan "Kapten Fathan Beraksi!"';
+      document.getElementById('otto-dialog').innerText = '"Perisai Keberanian Aktif! Kapten Fathan berani melangkah hari ini!"';
       const btn = document.getElementById('btn-activate-shield');
-
-      if (shieldIcon) shieldIcon.innerText = "🛡️";
-      if (shieldText) shieldText.innerText = 'Kepal Tangan & Katakan "Kapten Fathan Beraksi!"';
-      if (ottoDialog) ottoDialog.innerText = '"Perisai Keberanian Aktif! Kapten Fathan berani melangkah hari ini. Rasa takut hanyalah petunjuk bahwa kamu sedang berkembang!"';
-      
-      if (btn) {
-        btn.innerText = "✓ Aktif";
-        btn.className = "bg-emerald-500 text-white font-bold px-4 py-2 text-xs rounded-full cursor-default";
-        btn.onclick = null;
-      }
-
+      btn.innerText = "✓ Aktif";
+      btn.className = "bg-emerald-500 text-white font-bold px-4 py-2 text-xs rounded-full cursor-default";
+      btn.onclick = null;
       sendDataToGAS({ action: 'log_activity', questTitle: 'Mengaktifkan Perisai Keberanian', rewardType: 'XP', rewardValue: 0 });
     }
 
     function renderQuests() {
       const atomicContainer = document.getElementById('container-atomic-quests');
       const courageContainer = document.getElementById('container-courage-quests');
-
-      if (atomicContainer) atomicContainer.innerHTML = '';
-      if (courageContainer) courageContainer.innerHTML = '';
+      atomicContainer.innerHTML = '';
+      courageContainer.innerHTML = '';
 
       state.quests.forEach(q => {
         const item = document.createElement('div');
         item.className = "flex items-center justify-between p-3 bg-slate-50 rounded-2xl border border-slate-100";
-        
         let buttonHTML = '';
-        if (q.status === 'idle') {
-          buttonHTML = `<button onclick="reportQuest('${q.id}')" class="btn-fab-blue px-3.5 py-1.5 text-xs">Lapor Selesai</button>`;
-        } else if (q.status === 'pending') {
-          buttonHTML = `<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full">⏳ Menunggu Ortu</span>`;
-        } else if (q.status === 'approved') {
-          buttonHTML = `<span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2.5 py-1 rounded-full">✓ Selesai</span>`;
-        }
+        if (q.status === 'idle') buttonHTML = `<button onclick="reportQuest('${q.id}')" class="btn-fab-blue px-3.5 py-1.5 text-xs">Lapor Selesai</button>`;
+        else if (q.status === 'pending') buttonHTML = `<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full">⏳ Menunggu Ortu</span>`;
+        else if (q.status === 'approved') buttonHTML = `<span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-2.5 py-1 rounded-full">✓ Selesai</span>`;
 
-        item.innerHTML = `
-          <div>
-            <p class="text-xs font-semibold text-slate-800 font-doodle">${q.title}</p>
-            <span class="text-[10px] font-bold text-purple-600">+${q.xp} XP (Poin Pengalaman)</span>
-          </div>
-          ${buttonHTML}
-        `;
-
-        if (q.type === 'atomic' && atomicContainer) atomicContainer.appendChild(item);
-        else if (courageContainer) courageContainer.appendChild(item);
+        item.innerHTML = `<div><p class="text-xs font-semibold text-slate-800 font-doodle">${q.title}</p><span class="text-[10px] font-bold text-purple-600">+${q.xp} XP</span></div>${buttonHTML}`;
+        if (q.type === 'atomic') atomicContainer.appendChild(item);
+        else courageContainer.appendChild(item);
       });
-
       renderOrtuPendingQuests();
     }
 
     function reportQuest(id) {
       triggerConfetti();
       const q = state.quests.find(x => x.id === id);
-      if (q && q.status === 'idle') {
-        q.status = 'pending';
-        renderQuests();
-      }
+      if (q && q.status === 'idle') { q.status = 'pending'; renderQuests(); }
     }
 
     function renderOrtuPendingQuests() {
       const container = document.getElementById('ortu-pending-quests-list');
-      if (!container) return;
       container.innerHTML = '';
-
       const pendingQuests = state.quests.filter(q => q.status === 'pending');
       if (pendingQuests.length === 0) {
-        container.innerHTML = '<p class="text-slate-400 italic">Tidak ada laporan misi yang menunggu persetujuan.</p>';
+        container.innerHTML = '<p class="text-slate-400 italic">Tidak ada laporan menunggu persetujuan.</p>';
         return;
       }
-
       pendingQuests.forEach(q => {
         const item = document.createElement('div');
         item.className = "flex items-center justify-between p-2 bg-white rounded-xl border border-purple-100";
-        item.innerHTML = `
-          <span>${q.title} (+${q.xp} XP)</span>
-          <div class="space-x-1">
-            <button onclick="approveQuest('${q.id}', true)" class="bg-emerald-500 text-white font-bold px-2 py-1 rounded-lg text-[10px]">Setujui</button>
-            <button onclick="approveQuest('${q.id}', false)" class="bg-rose-500 text-white font-bold px-2 py-1 rounded-lg text-[10px]">Tolak</button>
-          </div>
-        `;
+        item.innerHTML = `<span>${q.title} (+${q.xp} XP)</span><div class="space-x-1"><button onclick="approveQuest('${q.id}', true)" class="bg-emerald-500 text-white font-bold px-2 py-1 rounded-lg text-[10px]">Setujui</button><button onclick="approveQuest('${q.id}', false)" class="bg-rose-500 text-white font-bold px-2 py-1 rounded-lg text-[10px]">Tolak</button></div>`;
         container.appendChild(item);
       });
     }
@@ -598,35 +413,86 @@
       const q = state.quests.find(x => x.id === id);
       if (q) {
         if (isApproved) {
-          q.status = 'approved';
-          state.xp += q.xp;
-          renderHeader();
+          q.status = 'approved'; state.xp += q.xp; renderHeader(); renderRapor();
           sendDataToGAS({ action: 'log_activity', questId: q.id, questTitle: q.title, category: q.type, rewardValue: q.xp });
-        } else {
-          q.status = 'idle';
-        }
+        } else { q.status = 'idle'; }
         renderQuests();
+      }
+    }
+
+    function confirmAndUnlockStory() {
+      triggerConfetti();
+      state.storyUnlocked = true;
+      state.streak += 1;
+      renderHeader();
+
+      document.getElementById('story-locked-notice').classList.add('hidden');
+      document.getElementById('story-reader').classList.remove('hidden');
+
+      fetchStoryFromGAS(state.currentDayEpisode);
+      alert('Cerita Hari Ini Berhasil Dibuka!');
+      switchTab('story');
+    }
+
+    function fetchStoryFromGAS(episode) {
+      document.getElementById('story-title').innerText = "Memuat cerita dari Google Sheets...";
+      document.getElementById('story-text').innerHTML = "<p>Sedang mengambil episode dari Google Sheets Ayah...</p>";
+
+      fetch(`${DEFAULT_GAS_URL}?action=get_story&episode=${episode}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "success" || data.status === "not_found") {
+            document.getElementById('story-episode-tag').innerText = `Episode ${data.episode} (Hari Ini)`;
+            document.getElementById('story-title').innerText = data.title;
+            document.getElementById('story-scene-caption').innerText = data.caption;
+            document.getElementById('story-text').innerHTML = data.text;
+
+            const videoContainer = document.getElementById('story-video-container');
+            const videoIframe = document.getElementById('story-video-iframe');
+
+            if (data.youtubeUrl && data.youtubeUrl.length > 5) {
+              let embedUrl = data.youtubeUrl;
+              if (embedUrl.includes("watch?v=")) embedUrl = embedUrl.replace("watch?v=", "embed/");
+              videoIframe.src = embedUrl;
+              videoContainer.classList.remove('hidden');
+            } else {
+              videoContainer.classList.add('hidden');
+            }
+          }
+        })
+        .catch(err => {
+          document.getElementById('story-title').innerText = "Gagal Memuat Cerita";
+          document.getElementById('story-text').innerHTML = "<p>Pastikan koneksi internet aktif untuk membaca dari Google Sheets.</p>";
+        });
+    }
+
+    function renderRapor() {
+      const evalBox = document.getElementById('rapor-eval-box');
+      document.getElementById('rapor-total-stars').innerText = `${state.stars} / 5 ⭐`;
+      document.getElementById('rapor-total-xp').innerText = `${state.xp} XP`;
+
+      if (state.stars >= 4 && state.xp >= 100) {
+        evalBox.className = "p-4 rounded-2xl border-2 border-emerald-300 bg-emerald-50 text-emerald-900 text-xs font-doodle space-y-1";
+        evalBox.innerHTML = `
+          <p class="font-bold text-sm font-fun text-emerald-800">🌟 LUAR BIASA! KAPTEN HEBAT!</p>
+          <p>"Kapten Fathan sangat berani dan disiplin minggu ini! Teruskan semangat membara ini, kamu bukan lagi penonton, kamu pahlawan sejati!"</p>
+        `;
+      } else {
+        evalBox.className = "p-4 rounded-2xl border-2 border-amber-300 bg-amber-50 text-amber-900 text-xs font-doodle space-y-1";
+        evalBox.innerHTML = `
+          <p class="font-bold text-sm font-fun text-amber-800">💪 AYO SEMANGAT LAGI, KAPTEN!</p>
+          <p>"Minggu ini sudah mencoba dengan baik! Jangan berkecil hati, setiap ksatria punya masa berlatih. Yuk tingkatkan lagi keberanianmu minggu depan!"</p>
+        `;
       }
     }
 
     function renderRewards() {
       const container = document.getElementById('container-rewards-list');
-      if (!container) return;
       container.innerHTML = '';
-
       state.rewards.forEach(r => {
         const card = document.createElement('div');
         card.className = "p-3.5 bg-amber-50/80 border border-amber-200/80 rounded-2xl flex items-center justify-between";
-        card.innerHTML = `
-          <div>
-            <p class="text-xs font-bold text-amber-950 font-fun">${r.title}</p>
-            <p class="text-[10px] text-amber-800 font-doodle">${r.desc}</p>
-            <span class="text-[10px] font-bold text-amber-600 mt-1 inline-block">${r.cost} XP</span>
-          </div>
-          <button onclick="claimReward('${r.id}')" class="btn-fab-yellow px-3 py-1.5 text-xs">
-            Tukar XP
-          </button>
-        `;
+        card.innerHTML = `<div><p class="text-xs font-bold text-amber-950 font-fun">${r.title}</p><p class="text-[10px] text-amber-800 font-doodle">${r.desc}</p><span class="text-[10px] font-bold text-amber-600 mt-1 inline-block">${r.cost} XP</span></div><button onclick="claimReward('${r.id}')" class="btn-fab-yellow px-3 py-1.5 text-xs">Tukar XP</button>`;
         container.appendChild(card);
       });
     }
@@ -636,102 +502,34 @@
       const r = state.rewards.find(x => x.id === id);
       if (r) {
         if (state.xp >= r.cost) {
-          state.xp -= r.cost;
-          renderHeader();
+          state.xp -= r.cost; renderHeader(); renderRapor();
           alert(`Berhasil menukarkan: ${r.title}! Tunjukkan ke Ortu ya!`);
           sendDataToGAS({ action: 'claim_reward', rewardTitle: r.title, xpCost: r.cost, remainingXp: state.xp });
-        } else {
-          alert(`XP kamu belum cukup (${state.xp}/${r.cost} XP). Kumpulkan dari misi keberanian ya!`);
-        }
+        } else alert(`XP kamu belum cukup (${state.xp}/${r.cost} XP).`);
       }
     }
 
-    // MODAL & ORTU FUNCTIONS
-    function toggleOrtuModal() {
-      const modal = document.getElementById('modal-ortu');
-      if (modal) modal.classList.toggle('hidden');
-    }
-
+    function toggleOrtuModal() { document.getElementById('modal-ortu').classList.toggle('hidden'); }
     function verifyPin() {
-      const pinInput = document.getElementById('input-pin');
-      if (pinInput && pinInput.value === '1234') {
+      if (document.getElementById('input-pin').value === '1234') {
         document.getElementById('ortu-auth-section').classList.add('hidden');
         document.getElementById('ortu-content-section').classList.remove('hidden');
         renderOrtuPendingQuests();
-      } else {
-        alert('PIN Salah!');
-      }
+      } else alert('PIN Salah!');
     }
-
     function changeStars(val) {
       state.stars = Math.max(0, Math.min(5, state.stars + val));
-      const display = document.getElementById('ortu-stars-display');
-      if (display) display.innerText = `${state.stars} / 5 ⭐`;
-      renderHeader();
-
+      document.getElementById('ortu-stars-display').innerText = `${state.stars} / 5 ⭐`;
+      renderHeader(); renderRapor();
       sendDataToGAS({ action: 'update_stars', currentStars: state.stars, change: val });
     }
 
-    function confirmAndUnlockStory() {
-      triggerConfetti();
-      state.storyUnlocked = true;
-      
-      const lockedNotice = document.getElementById('story-locked-notice');
-      const reader = document.getElementById('story-reader');
-
-      if (lockedNotice) lockedNotice.classList.add('hidden');
-      if (reader) reader.classList.remove('hidden');
-
-      loadStoryEpisode(state.currentEpisode);
-      alert('Cerita Hari Ini Berhasil Dibuka!');
-      switchTab('story');
-    }
-
-    function loadStoryEpisode(epNum) {
-      state.currentEpisode = epNum;
-      const epData = state.episodes[epNum];
-      if (epData) {
-        document.getElementById('story-episode-tag').innerText = `Episode ${epNum}`;
-        document.getElementById('story-title').innerText = epData.title;
-        document.getElementById('story-scene-caption').innerText = epData.caption;
-        document.getElementById('story-text').innerHTML = epData.text;
-      }
-    }
-
-    function addCustomQuest() {
-      const titleInput = document.getElementById('custom-quest-title');
-      const typeInput = document.getElementById('custom-quest-reward-type');
-      const valInput = document.getElementById('custom-quest-reward-val');
-
-      if (titleInput && titleInput.value) {
-        state.quests.push({
-          id: 'custom_' + Date.now(),
-          title: `[Ortu] ${titleInput.value}`,
-          xp: parseInt(valInput.value) || 20,
-          type: 'courage',
-          status: 'idle'
-        });
-        renderQuests();
-        alert('Misi Tambahan Berhasil Diberikan!');
-        sendDataToGAS({ action: 'custom_quest', title: titleInput.value, rewardType: typeInput.value, rewardValue: parseInt(valInput.value) || 20 });
-      }
-    }
-
-    // FUNGSI PENGIRIMAN DATA KE GAS
     function sendDataToGAS(payload) {
-      if (!DEFAULT_GAS_URL || DEFAULT_GAS_URL.includes("AKfycbx...")) {
-        console.warn("GAS_URL belum diisi pada berkas index.html!");
-        return;
-      }
-
       fetch(DEFAULT_GAS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+        method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
-      })
-      .then(() => console.log('Data terkirim ke GAS!'))
-      .catch(err => console.error('Gagal mengirim data ke GAS:', err));
+      });
     }
   </script>
 </body>
